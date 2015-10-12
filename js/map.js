@@ -45,10 +45,74 @@ function go () {
       infoWindow.setContent(mensajes[index]);
       infoWindow.open(map,marker);
       clearInterval(interval);
-      
+      dataSet.push( restData[index-1]);
+      path.transition().attr("d", linea)
     } else {
       marker.setPosition(google.maps.geometry.spherical.interpolate(ruta[index],ruta[index+1],step/numSteps));
     }
   }, timePerStep);
 }
+
+var estados = ["Monterrey", "DF", "Misantla"];
+var values = [0.0, 3.0,5.0,10.0];
+var dataSet = [ 
+  ["Monterrey",3.0]
+];
+var restData = [
+  ["DF",7.0],
+  ["Misantla",5.0]
+];
+
+var margin = {top: 20, right: 50, bottom: 30, left: 50},
+  width = 500 - margin.left - margin.right,
+  height = 300 - margin.top - margin.bottom;
+
+var x = d3.scale.ordinal().rangePoints([0, width],0);
+
+var y = d3.scale.linear().range([height, 0]);
+
+var xAxis = d3.svg.axis()
+  .scale(x)
+  .tickFormat(function(d) { return d; })
+  .orient("bottom");
+
+var yAxis = d3.svg.axis()
+  .scale(y)
+  .orient("left");
+
+var linea = d3.svg.line()
+  .x(function(d) { return x(d[0]); })
+  .y(function(d) { return y(d[1]); });
+
+var svg = d3.select("#grap").append("svg")
+  .attr("width", width + margin.left + margin.right)
+  .attr("height", height + margin.top + margin.bottom)
+  .append("g")
+  .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+x.domain(estados.map(function(d) { return d; }));
+y.domain(d3.extent(values, function(d) { return d; }));
+
+svg.append("g")
+  .attr("class", "x axis")
+  .attr("transform", "translate(0," + height + ")")
+  .call(xAxis);
+
+svg.append("g")
+  .attr("class", "y axis")
+  .call(yAxis)
+  .append("text")
+  .attr("transform", "rotate(-90)")
+  .attr("y", 6)
+  .attr("dy", ".71em")
+  .style("text-anchor", "end");
+
+
+var path = svg.append("path")
+  .datum(dataSet)
+  .attr("class", "line")
+  .attr("d", linea)
+
+
+
 
