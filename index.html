@@ -5,10 +5,28 @@
 		 <link rel="stylesheet" type="text/css" href="css/map.css">
 		<title>Mi viaje</title>
 	</head>
+	<style type="text/css">
+		  .axis path,
+      .axis line {
+        fill: none;
+        stroke: #000;
+        shape-rendering: crispEdges;
+      }
+
+
+
+      .line {
+        fill: none;
+        stroke: steelblue;
+        stroke-width: 1.5px;
+      }
+	</style>
 	<body>
 		<div id="map">
 		</div>
+		<div id="grap"></div>
 	</body>
+	<script src="http://d3js.org/d3.v3.min.js"></script>
 	<script type="text/javascript" src="js/map.js"></script>
 	<script src="https://maps.googleapis.com/maps/api/js?libraries=geometry&callback=initMap"
         async defer></script>
