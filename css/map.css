@@ -1,4 +1,13 @@
 #map { 
-	width: 800px; 
+	width: 50%; 
 	height: 600px;
+}
+
+#grap
+{
+	width: 40%;
+}
+
+#map, #grap{
+	display: inline-block;
 }
